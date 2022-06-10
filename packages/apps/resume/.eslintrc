@@ -1,7 +1,0 @@
-{
-	"root": true,
-	"extends": ["next"],
-	"rules": {
-		"@next/next/no-document-import-in-page": [0]
-	}
-}

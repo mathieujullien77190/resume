@@ -7,18 +7,9 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 	enabled: process.env.ANALYZE === "true",
 	openAnalyzer: process.env.ANALYZE === "true",
 })
-const isProduction = process.env.NODE_ENV === "production"
-
-const BASE_PREFIX_FOR_APP = isProduction ? "/dv-ui" : ""
 
 const nextConfig = {
-	env: {},
-	poweredByHeader: false,
-	assetPrefix: BASE_PREFIX_FOR_APP,
-
-	publicRuntimeConfig: {
-		BASE_PREFIX_FOR_APP: BASE_PREFIX_FOR_APP,
-	},
+	
 	webpack: (config, _options) => {
 		config.resolve.alias = {
 			...config.resolve.alias,

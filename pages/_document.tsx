@@ -23,12 +23,12 @@ export default class MyDocument extends Document {
 			const initialProps = await Document.getInitialProps(ctx)
 			return {
 				...initialProps,
-				styles: (
+				styles: [
 					<>
 						{initialProps.styles}
 						{sheet.getStyleElement()}
-					</>
-				),
+					</>,
+				],
 			}
 		} finally {
 			sheet.seal()
@@ -43,10 +43,7 @@ export default class MyDocument extends Document {
 					<meta charSet="utf-8" />
 					<meta property="og:locale" content="fr_FR" />
 					<meta property="og:url" content="" />
-					<link
-						rel="shortcut icon"
-						href="https://cmder.net/favicon.ico"
-					></link>
+					<link rel="shortcut icon" href="https://cmder.net/favicon.ico"></link>
 				</Head>
 
 				<body>
