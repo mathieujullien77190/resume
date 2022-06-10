@@ -1,0 +1,16 @@
+*/node_modules
+**/.next
+**/dist
+**/out
+.vscode
+yarn-error.log
+**/coverage/
+**/public/sw.js
+**/public/sw.js.map
+**/public/workbox-*.js
+**/public/workbox-*.js.map
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
