@@ -9,7 +9,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 })
 
 const nextConfig = {
-	
+	distDir: "build",
 	webpack: (config, _options) => {
 		config.resolve.alias = {
 			...config.resolve.alias,
@@ -21,7 +21,6 @@ const nextConfig = {
 			_store: path.join(__dirname, "store"),
 			_constants: path.join(__dirname, "constants"),
 			_public: path.join(__dirname, "public"),
-			_testUtils: path.join(__dirname, "testUtils"),
 		}
 		config.resolve.extensions.push(...[".ts", ".tsx"])
 		return config
