@@ -16,10 +16,10 @@ const Command = ({
 	onRendered = () => {},
 }: CommandProps) => {
 	const result = trad(command.result, lang)
-	const name = trad(command.name, lang).toLowerCase()
+	const name = trad(command.name, lang)
 	const args = trad(command.args.map(arg => `${arg}`).join(" "), lang)
 
-	const displayResult = useDisplayByLetter(result, canRendered, animation)
+	const displayResult = useDisplayByLetter(result, canRendered, animation, lang)
 
 	useEffect(() => {
 		window.scrollTo(0, 100000)
@@ -42,7 +42,11 @@ const Command = ({
 						</S.CmdLine>
 					)}
 
-					<S.CmdResult>{hightlight(displayResult.txt)}</S.CmdResult>
+					<S.CmdResult style={command?.display?.stylePre || {}}>
+						{command?.display?.noHightlight
+							? displayResult.txt
+							: hightlight(displayResult.txt)}
+					</S.CmdResult>
 				</S.CmdContainer>
 			)}
 		</>

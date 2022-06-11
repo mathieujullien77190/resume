@@ -39,6 +39,7 @@ export const createCommand = (
 				timestamp,
 				id: `${timestamp}-${name}`,
 				isRendered: false,
+				canExecute: true,
 			}
 		} else {
 			const error = findCommand("argumenterror", true)
@@ -51,6 +52,7 @@ export const createCommand = (
 				timestamp,
 				id: `${timestamp}-${name}`,
 				isRendered: false,
+				canExecute: false,
 			}
 		}
 	} else {
@@ -64,6 +66,7 @@ export const createCommand = (
 			timestamp,
 			id: `${timestamp}-${name}`,
 			isRendered: false,
+			canExecute: false,
 		}
 	}
 }

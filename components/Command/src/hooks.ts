@@ -6,7 +6,8 @@ import { letterWrite } from "./helpers"
 export const useDisplayByLetter = (
 	baseTxt: string,
 	canRendered: boolean,
-	animation: boolean
+	animation: boolean,
+	lang: string
 ) => {
 	const [textTime, setTextTime] = useState<string>("")
 	const [finish, setFinish] = useState<boolean>(false)
@@ -27,5 +28,9 @@ export const useDisplayByLetter = (
 			}, stepTime)
 		}
 	}, [canRendered])
+
+	useEffect(() => {
+		if (finish) setTextTime(baseTxt)
+	}, [lang])
 	return { txt: textTime, finish }
 }

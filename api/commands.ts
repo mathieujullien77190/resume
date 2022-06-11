@@ -5,6 +5,9 @@ import { colors } from "_components/constants"
 
 import { titleAsciiArt } from "./asciArt"
 
+import { setProperties } from "_store/global/"
+import { clear } from "_store/history/"
+
 const textHelp = (help: Help) => {
 	const patterns = help.patterns
 		.map(item => `\t${item.pattern} : ${item.description}\n`)
@@ -32,7 +35,7 @@ export const commands: BaseCommand[] = [
 		restricted: true,
 		name: "welcome",
 		action: () => {
-			return { FR: `Bienvenue, taper \`help\``, EN: "xxx" }
+			return { fr: `Bienvenue, taper \`help\``, en: "xxx" }
 		},
 		help: {
 			description:
@@ -58,6 +61,8 @@ export const commands: BaseCommand[] = [
 		display: {
 			hideCmd: true,
 			style: { alignItems: "center" },
+			stylePre: { fontSize: "calc(100vw/80)" },
+			noHightlight: true,
 		},
 	},
 	{
@@ -65,8 +70,8 @@ export const commands: BaseCommand[] = [
 		name: "noclick",
 		action: () => {
 			return {
-				FR: `Ceci est un terminal de commande, la souris est inutile`,
-				EN: "xxx",
+				fr: `Ceci est un terminal de commande, la souris est inutile`,
+				en: "xxx",
 			}
 		},
 		help: {
@@ -80,8 +85,8 @@ export const commands: BaseCommand[] = [
 		name: "unknow",
 		action: ({ args }) => {
 			return {
-				FR: `${args[0]} n’est pas reconnu en tant que commande interne, tapez \`help\` pour afficher la liste des commandes`,
-				EN: "xxx",
+				fr: `${args[0]} n’est pas reconnu en tant que commande interne, tapez \`help\` pour afficher la liste des commandes`,
+				en: "xxx",
 			}
 		},
 		help: {
@@ -94,34 +99,12 @@ export const commands: BaseCommand[] = [
 		restricted: true,
 		name: "argumenterror",
 		action: () => {
-			return { FR: `argument(s) non reconnu`, EN: "xxx" }
+			return { fr: `argument(s) non reconnu`, en: "xxx" }
 		},
 		help: {
 			description:
 				"Ceci est une commande à accès restreint, vous ne pouvez pas l'utiliser",
 			patterns: [],
-		},
-	},
-	{
-		restricted: false,
-		name: "hello",
-		action: ({ args }) => {
-			return args.length === 0
-				? { FR: "Hello le monde", EN: "xxx" }
-				: { FR: `Hello ${args.join(" ")}`, EN: "xxx" }
-		},
-		help: {
-			description: "Affiche du texte à l'écran",
-			patterns: [
-				{
-					pattern: "hello",
-					description: "Affiche `Hello world`",
-				},
-				{
-					pattern: "hello [text]",
-					description: "Affiche `Hello [text]`",
-				},
-			],
 		},
 	},
 	{
@@ -151,9 +134,34 @@ export const commands: BaseCommand[] = [
 	},
 	{
 		restricted: false,
+		name: "hello",
+		action: ({ args }) => {
+			return args.length === 0
+				? { fr: "Hello le monde", en: "xxx" }
+				: { fr: `Hello ${args.join(" ")}`, en: "xxx" }
+		},
+		help: {
+			description: "Affiche du texte à l'écran",
+			patterns: [
+				{
+					pattern: "hello",
+					description: "Affiche `Hello world`",
+				},
+				{
+					pattern: "hello [text]",
+					description: "Affiche `Hello [text]`",
+				},
+			],
+		},
+	},
+	{
+		restricted: false,
 		name: "clear",
 		action: () => {
 			return ""
+		},
+		redux: () => {
+			return clear()
 		},
 		help: {
 			patterns: [
@@ -195,8 +203,14 @@ export const commands: BaseCommand[] = [
 		testArgs: { authorize: ["on", "off"], empty: false },
 		action: ({ args }) => {
 			return args[0] === "on"
-				? { FR: "activé", EN: "enabled" }
-				: { FR: "désactiver", EN: "disabled" }
+				? { fr: "activé", en: "enabled" }
+				: { fr: "désactiver", en: "disabled" }
+		},
+		redux: ({ args }) => {
+			return setProperties({
+				key: "debugMode",
+				value: args[0] === "on" ? true : false,
+			})
 		},
 		help: {
 			patterns: [
@@ -217,9 +231,16 @@ export const commands: BaseCommand[] = [
 		testArgs: { authorize: ["on", "off"], empty: false },
 		action: ({ args }) => {
 			return args[0] === "on"
-				? { FR: "activé", EN: "enabled" }
-				: { FR: "désactiver", EN: "disabled" }
+				? { fr: "activé", en: "enabled" }
+				: { fr: "désactiver", en: "disabled" }
 		},
+		redux: ({ args }) => {
+			return setProperties({
+				key: "animation",
+				value: args[0] === "on" ? true : false,
+			})
+		},
+
 		help: {
 			patterns: [
 				{
@@ -236,19 +257,25 @@ export const commands: BaseCommand[] = [
 	{
 		restricted: false,
 		name: "lang",
-		testArgs: { authorize: ["FR", "EN", "leet", "xleet", "#"], empty: false },
+		testArgs: { authorize: ["fr", "en", "leet", "xleet", "#"], empty: false },
 		action: ({ args }) => {
-			return { FR: `langage : ${args[0]}`, EN: `language : ${args[0]}` }
+			return { fr: `langage : ${args[0]}`, en: `language : ${args[0]}` }
+		},
+		redux: ({ args }) => {
+			return setProperties({
+				key: "lang",
+				value: args[0],
+			})
 		},
 		help: {
 			patterns: [
 				{
-					pattern: "lang FR",
+					pattern: "lang fr",
 					description:
 						"Affiche tout les textes en français (attention les commandes restent en anglais)",
 				},
 				{
-					pattern: "lang EN",
+					pattern: "lang en",
 					description: "Affiche tout les textes en anglais",
 				},
 				{
@@ -266,6 +293,27 @@ export const commands: BaseCommand[] = [
 			],
 		},
 	},
+	{
+		restricted: false,
+		name: "about",
+		action: () => {
+			return [
+				"\n| +λ+ SMCmder",
+				"| Application de ligne de commande (inspiré par Cmder)",
+				"| Créée par *Mathieu JULLIEN* qui n'a absolument aucune utilité",
+				"| Techno utilisé : React/Redux | NextJs | NodeJs",
+			].join("\n")
+		},
+
+		help: {
+			patterns: [
+				{
+					pattern: "about",
+					description: "Affiche différentes informations inutile",
+				},
+			],
+		},
+	},
 ]
 
 export const findCommand = (
@@ -275,8 +323,16 @@ export const findCommand = (
 	return (
 		commands.filter(
 			command =>
-				command.name === name.toLowerCase() &&
+				command.name === name &&
 				(command.restricted === restricted || restricted === null)
 		)[0] || null
 	)
+}
+
+export const autocompleteCommand = (startCommand: string): string => {
+	if (startCommand === "") return ""
+	const find = commands.filter(
+		command => !command.restricted && command.name.indexOf(startCommand) === 0
+	)
+	return find[0]?.name || ""
 }

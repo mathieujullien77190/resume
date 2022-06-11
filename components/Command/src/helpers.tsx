@@ -4,9 +4,13 @@ import { Trad } from "_/types"
 import { colors } from "_components/constants"
 
 export const trad = (input: Trad | string, lang: string) => {
-	if (lang === "leet") return frToLeet(input["FR"] || input)
-	if (lang === "xleet") return frToLeet(input["FR"] || input, true)
-	if (lang === "#") return (input["FR"] || input).replace(/[\wç]/gi, "#")
+	if (lang === "leet") return frToLeet(input["fr"] || input)
+	if (lang === "xleet") return frToLeet(input["fr"] || input, true)
+	if (lang === "#")
+		return (input["fr"] || input)
+			.normalize("NFD")
+			.replace(/[\u0300-\u036f]/g, "")
+			.replace(/[\wç]/gi, "#")
 	return input[lang] || input
 }
 
@@ -77,6 +81,21 @@ export const hightlight = text => {
 
 	result = reactStringReplace(result, /\*([\d\w\ ]*)\*/g, (match, i) => (
 		<span key={match + i} style={{ color: colors.infoColor }}>
+			{match}
+		</span>
+	))
+
+	result = reactStringReplace(result, /\+([\d\wλ\ ]*)\+/g, (match, i) => (
+		<span
+			key={match + i}
+			style={{
+				background: colors.appColor,
+				color: "black",
+				border: "solid 1px solid",
+				padding: "0 5px",
+				fontWeight: "bold",
+			}}
+		>
 			{match}
 		</span>
 	))

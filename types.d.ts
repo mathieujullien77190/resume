@@ -6,7 +6,7 @@ export type Help = {
 	patterns: { pattern: string; description: string }[]
 }
 
-export type Trad = { FR: string; EN: string }
+export type Trad = { fr: string; en: string }
 
 export type Action = ({
 	name,
@@ -24,11 +24,14 @@ export type BaseCommand = {
 	restricted: boolean
 	name: string
 	action: Action
+	redux?: ({ args }: { args?: Command["args"] }) => unknown
 	help?: Help
 	testArgs?: Args
 	display?: {
 		hideCmd?: boolean
 		style?: CSSProperties
+		stylePre?: CSSProperties
+		noHightlight?: boolean
 	}
 }
 
@@ -41,9 +44,12 @@ export type Command = {
 	visible?: boolean
 	timestamp?: number
 	id: string
+	canExecute: boolean
 	display?: {
 		hideCmd?: boolean
 		style?: CSSProperties
+		stylePre?: CSSProperties
+		noHightlight?: boolean
 	}
 	isRendered: boolean
 }

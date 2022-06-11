@@ -12,7 +12,7 @@ type Global = {
 const initialState: Global = {
 	noMouse: false,
 	debugMode: false,
-	lang: "FR",
+	lang: "fr",
 	animation: true,
 }
 
@@ -20,34 +20,14 @@ const folderSlice = createSlice({
 	name: "user",
 	initialState,
 	reducers: {
-		activateNoMouse(state, action: { payload: boolean }) {
-			state.noMouse = action.payload
-		},
-		activateDebugMode(state, action: { payload: boolean }) {
-			state.debugMode = action.payload
-		},
-		changeLanguage(state, action: { payload: string }) {
-			state.lang = action.payload
-		},
-		activateAnimation(state, action: { payload: boolean }) {
-			state.animation = action.payload
+		setProperties<T>(state, action: { payload: { key: string; value: T } }) {
+			state[action.payload.key] = action.payload.value
 		},
 	},
 })
 
-const {
-	activateNoMouse,
-	activateDebugMode,
-	changeLanguage,
-	activateAnimation,
-} = folderSlice.actions
+const { setProperties } = folderSlice.actions
 
 const { reducer } = folderSlice
 
-export {
-	activateNoMouse,
-	activateDebugMode,
-	changeLanguage,
-	activateAnimation,
-	reducer,
-}
+export { setProperties, reducer }

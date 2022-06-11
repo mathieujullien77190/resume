@@ -3,18 +3,29 @@
 import styled from "styled-components"
 import { colors } from "_components/constants"
 
-export const CustomInput = styled.input`
-	background: ${colors.background};
+export const CustomInput = styled.input<{ nbsLetters: number }>`
+	background-color: ${colors.background};
 	border: none;
 	outline: none;
 	color: white;
 	padding: 0;
 	margin: 0;
 	font-family: monospace;
-	width: 100%;
+	width: ${({ nbsLetters }) => nbsLetters * 10 + 10}px;
 	margin-left: 8px;
 `
 
 export const Container = styled.div`
 	display: flex;
+`
+
+export const Predict = styled.span`
+	opacity: 0.5;
+`
+
+export const Lambda = styled.strong`
+	background-color: ${colors.appColor};
+	color: black;
+	padding: 0 5px;
+	border: solid 1px black;
 `

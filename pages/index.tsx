@@ -1,7 +1,8 @@
 /** @format */
 
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect } from "react"
 
+import { findCommand } from "_/api/commands"
 import { createCommand } from "_/api/terminalEngine"
 
 import Layout from "_components/Layout"
@@ -11,16 +12,12 @@ import { useAppDispatch } from "_store/hooks"
 import {
 	addCommand,
 	moveCursor,
-	clear,
 	setIsRendered,
 	useGetCommands,
 	useGetCurrentCommand,
 } from "_store/history/"
 import {
-	activateNoMouse,
-	activateDebugMode,
-	changeLanguage,
-	activateAnimation,
+	setProperties,
 	useGetNoMouse,
 	useGetDebugMode,
 	useGetLanguage,
@@ -28,7 +25,6 @@ import {
 } from "_store/global/"
 
 const Home = () => {
-	const [displayMouse, setDisplayMouse] = useState<boolean>(false)
 	const dispatch = useAppDispatch()
 	const commands = useGetCommands()
 	const noMouse = useGetNoMouse()
@@ -52,22 +48,19 @@ const Home = () => {
 
 	const handleClick = useCallback(() => {
 		if (!noMouse) handleSendRestrictedCommand("noclick")
-		dispatch(activateNoMouse(true))
+		dispatch(setProperties({ value: true, key: "noMouse" }))
 	}, [noMouse, handleSendRestrictedCommand])
 
 	const handleSendCommand = useCallback(
 		(commandPattern: string) => {
 			const cmd = createCommand(commandPattern, false)
+			const baseCmd = findCommand(cmd.name, false)
 
-			if (cmd.name === "debug")
-				dispatch(activateDebugMode(cmd.args[0] === "on" ? true : false))
-			if (cmd.name === "animation")
-				dispatch(activateAnimation(cmd.args[0] === "on" ? true : false))
-			if (cmd.name === "clear") {
-				dispatch(clear())
+			if (baseCmd.redux && cmd.canExecute)
+				dispatch(baseCmd.redux({ args: cmd.args }))
+
+			if (cmd.name === "clear" && cmd.canExecute)
 				handleSendRestrictedCommand("title")
-			}
-			if (cmd.name === "lang") dispatch(changeLanguage(cmd.args[0]))
 
 			dispatch(addCommand(cmd))
 
