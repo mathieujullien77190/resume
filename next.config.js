@@ -10,6 +10,12 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 const nextConfig = {
 	distDir: "build",
+	exportTrailingSlash: true,
+	exportPathMap: function () {
+		return {
+			"/": { page: "/" },
+		}
+	},
 	webpack: (config, _options) => {
 		config.resolve.alias = {
 			...config.resolve.alias,
