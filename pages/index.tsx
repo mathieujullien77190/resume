@@ -6,7 +6,6 @@ import { createCommand } from "_/api/terminalEngine"
 
 import Layout from "_components/Layout"
 import Terminal from "_components/Terminal"
-import Mouse from "_components/Mouse"
 
 import { useAppDispatch } from "_store/hooks"
 import {
