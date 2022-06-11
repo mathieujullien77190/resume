@@ -9,6 +9,8 @@ import React, {
 } from "react"
 import { InputProps } from "./types"
 
+import { isMobile } from "react-device-detect"
+
 import { autocompleteCommand } from "_/api/commands"
 
 import * as S from "./UI"
@@ -90,7 +92,7 @@ export const Input = ({
 					setInputValue(e.currentTarget.value)
 				}}
 			/>
-			{predict !== "" && (
+			{!isMobile && predict !== "" && (
 				<S.Predict>( {predict}? appuyez sur [TAB] )</S.Predict>
 			)}
 		</S.Container>

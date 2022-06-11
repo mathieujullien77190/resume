@@ -300,8 +300,8 @@ export const commands: BaseCommand[] = [
 			return [
 				"\n| +λ+ SMCmder",
 				"| Application de ligne de commande (inspiré par Cmder)",
-				"| Créée par *Mathieu JULLIEN* qui n'a absolument aucune utilité",
-				"| Techno utilisé : React/Redux | NextJs | NodeJs",
+				"| Créée par *Mathieu JULLIEN* alias *SuperMatou* qui n'a absolument aucune utilité",
+				"| Technos utilisées : React/Redux | NextJs | NodeJs",
 			].join("\n")
 		},
 

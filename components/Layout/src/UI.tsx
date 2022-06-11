@@ -14,7 +14,7 @@ export const GlobalStyles = createGlobalStyle<{
   }
 
   *, input {
-    font-size: 17px;
+    font-size: ${({ isMobile }) => (isMobile ? "10px" : "17px")};
   }
 `
 
