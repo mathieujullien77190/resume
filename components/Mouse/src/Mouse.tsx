@@ -1,6 +1,7 @@
 /** @format */
 
 import React, { useState } from "react"
+import { isMobile } from "react-device-detect"
 
 import { MouseProps } from "./types"
 
@@ -13,26 +14,32 @@ export const Mouse = ({ onActivate, show, noMouse }: MouseProps) => {
 		useState<boolean>(false)
 
 	return (
-		<S.Container
-			show={show}
-			onMouseEnter={onActivate}
-			onClick={e => {
-				if (e.detail >= 3) {
-					clearTimeout(timer)
-					setCanDisplayUselessMessage(true)
-					timer = setTimeout(() => setCanDisplayUselessMessage(false), 5000)
-				}
-			}}
-		>
-			{!canDisplayUselessMessage && (
-				<>
-					{noMouse && <>Votre souris vient d&apos;être désactivé, dommage.</>}
-					{!noMouse && <>Veuillez positionner votre souris ici</>}
-				</>
+		<>
+			{isMobile && (
+				<S.Container
+					show={show}
+					onMouseEnter={onActivate}
+					onClick={e => {
+						if (e.detail >= 3) {
+							clearTimeout(timer)
+							setCanDisplayUselessMessage(true)
+							timer = setTimeout(() => setCanDisplayUselessMessage(false), 5000)
+						}
+					}}
+				>
+					{!canDisplayUselessMessage && (
+						<>
+							{noMouse && (
+								<>Votre souris vient d&apos;être désactivé, dommage.</>
+							)}
+							{!noMouse && <>Veuillez positionner votre souris ici</>}
+						</>
+					)}
+					{canDisplayUselessMessage && (
+						<>Ça sert à rien de cliquer comme un perdu!</>
+					)}
+				</S.Container>
 			)}
-			{canDisplayUselessMessage && (
-				<>Ça sert à rien de cliquer comme un perdu!</>
-			)}
-		</S.Container>
+		</>
 	)
 }

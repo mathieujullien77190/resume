@@ -11,7 +11,6 @@ export const CustomInput = styled.input`
 	padding: 0;
 	margin: 0;
 	font-family: monospace;
-	font-size: 17px;
 	width: 100%;
 	margin-left: 8px;
 `

@@ -3,7 +3,10 @@
 import styled, { createGlobalStyle, css } from "styled-components"
 import { colors } from "_components/constants"
 
-export const GlobalStyles = createGlobalStyle<{ noMouse: boolean }>`
+export const GlobalStyles = createGlobalStyle<{
+	noMouse: boolean
+	isMobile: boolean
+}>`
   body, html, #__next {
 	height: 100%;
 	width: 100%;
@@ -11,8 +14,8 @@ export const GlobalStyles = createGlobalStyle<{ noMouse: boolean }>`
 	background: ${colors.background};
   }
 
-  * {
-    font-size: 17px;
+  *, input {
+    font-size: ${({ isMobile }) => (isMobile ? "12px" : "17px")};
   	${({ noMouse }) =>
 			noMouse &&
 			css`
