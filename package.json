@@ -8,8 +8,10 @@
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.7.2",
 		"next": "latest",
+		"npm": "^8.12.1",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
+		"react-is": "^18.1.0",
 		"react-redux": "^7.2.2",
 		"react-string-replace": "^1.1.0",
 		"styled-components": "^5.3.3"
@@ -22,14 +24,14 @@
 		"@types/react": "^18.0.12",
 		"@types/react-redux": "^7.1.22",
 		"@types/styled-components": "5.1.23",
-		"dotenv": "^16.0.0",
-		"eslint": "^8.17.0",
-		"next-compose-plugins": "^2.2.1",
-		"typescript": "^4.7.3",
 		"@typescript-eslint/eslint-plugin": "^5.12.1",
 		"@typescript-eslint/parser": "^5.12.1",
+		"dotenv": "^16.0.0",
+		"eslint": "^8.17.0",
+		"eslint-config-next": "latest",
 		"eslint-config-prettier": "^8.4.0",
 		"eslint-plugin-import": "^2.25.4",
-		"eslint-config-next": "latest"
+		"next-compose-plugins": "^2.2.1",
+		"typescript": "^4.7.3"
 	}
 }
