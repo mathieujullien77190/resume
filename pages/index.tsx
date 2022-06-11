@@ -56,7 +56,7 @@ const Home = () => {
 			const cmd = createCommand(commandPattern, false)
 			const baseCmd = findCommand(cmd.name, false)
 
-			if (baseCmd.redux && cmd.canExecute)
+			if (baseCmd?.redux && cmd.canExecute)
 				dispatch(baseCmd.redux({ args: cmd.args }))
 
 			if (cmd.name === "clear" && cmd.canExecute)

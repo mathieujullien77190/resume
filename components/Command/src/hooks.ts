@@ -14,12 +14,13 @@ export const useDisplayByLetter = (
 	useEffect(() => {
 		if (canRendered) {
 			const txt = animation ? letterWrite(baseTxt) : [baseTxt]
-			const stepTime = txt.length > 200 ? 1 : 20
+			const stepTime = txt.length > 200 ? 1 : 10
+			const j = txt.length > 200 ? 3 : 1
 			let i = 0
 
 			const timer = setInterval(() => {
 				setTextTime(txt[i])
-				i++
+				i = i + j
 
 				if (i > txt.length - 1) {
 					clearInterval(timer)

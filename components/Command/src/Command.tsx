@@ -1,8 +1,9 @@
 /** @format */
 
 import React, { useEffect } from "react"
-
 import { CommandProps } from "./types"
+
+import { app } from "_components/constants"
 
 import * as S from "./UI"
 import { trad, hightlight } from "./helpers"
@@ -35,7 +36,7 @@ const Command = ({
 				<S.CmdContainer style={command?.display?.style || {}}>
 					{!command?.display?.hideCmd && (
 						<S.CmdLine restricted={command.restricted}>
-							<strong>λ</strong>{" "}
+							<strong>{app.logo}</strong>{" "}
 							<span>
 								{name} {args}
 							</span>

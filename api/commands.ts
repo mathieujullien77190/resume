@@ -1,7 +1,7 @@
 /** @format */
 import { BaseCommand, Help } from "_/types"
 
-import { colors } from "_components/constants"
+import { colors, app } from "_components/constants"
 
 import { titleAsciiArt } from "./asciArt"
 
@@ -22,6 +22,7 @@ const allCommandsHelp = () => {
 		.filter(
 			command => !command.restricted && command.help && command.name !== "help"
 		)
+		.sort((a, b) => a.name.localeCompare(b.name))
 		.map(command => {
 			return `*${command.name}*\n${command.help.patterns
 				.map(pattern => `\t${pattern.pattern} : ${pattern.description}\n`)
@@ -35,7 +36,12 @@ export const commands: BaseCommand[] = [
 		restricted: true,
 		name: "welcome",
 		action: () => {
-			return { fr: `Bienvenue, taper \`help\``, en: "xxx" }
+			return [
+				`Bienvenue, Vous êtes sur +${app.name}+ un terminal de commande ultra performant.`,
+				"Deux solutions s'offres à vous : ",
+				` - Vous souhaitez avoir des informations sur ${app.author} : taper \`cv\``,
+				` - Vous avez du temps à perdre et vous voulez découvrir toute -l'inutilite- la puissance de +${app.name}+ : tapez \`help\``,
+			].join("\n")
 		},
 		help: {
 			description:
@@ -122,8 +128,7 @@ export const commands: BaseCommand[] = [
 			}
 		},
 		help: {
-			description:
-				'Fournit des informations d’aide sur les commandes du "SuperMatouCmder"',
+			description: `Fournit des informations d’aide sur les commandes du +${app.name}+`,
 			patterns: [
 				{
 					pattern: "help [command]",
@@ -177,7 +182,7 @@ export const commands: BaseCommand[] = [
 		name: "email",
 		testArgs: { authorize: ["copy"], empty: true },
 		action: ({ args }) => {
-			const email = "mathieu.jullien77190@gmail.com"
+			const email = app.email
 			if (args[0] === "copy") {
 				navigator.clipboard.writeText(email)
 			}
@@ -298,9 +303,9 @@ export const commands: BaseCommand[] = [
 		name: "about",
 		action: () => {
 			return [
-				"\n| +λ+ SMCmder",
-				"| Application de ligne de commande (inspiré par Cmder)",
-				"| Créée par *Mathieu JULLIEN* alias *SuperMatou* qui n'a absolument aucune utilité",
+				`\n| +${app.name}+`,
+				"| Application de ligne de commande (inspiré par λCmder)",
+				`| Créée par *${app.author}* alias *${app.alias}* qui n'a absolument aucune utilité`,
 				"| Technos utilisées : React/Redux | NextJs | NodeJs",
 			].join("\n")
 		},
@@ -310,6 +315,22 @@ export const commands: BaseCommand[] = [
 				{
 					pattern: "about",
 					description: "Affiche différentes informations inutile",
+				},
+			],
+		},
+	},
+	{
+		restricted: false,
+		name: "cv",
+		action: () => {
+			return ["blablabla mon CV ici à compléter"].join("\n")
+		},
+
+		help: {
+			patterns: [
+				{
+					pattern: "cv",
+					description: `Affiche le CV de ${app.author}`,
 				},
 			],
 		},

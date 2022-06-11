@@ -4,7 +4,7 @@ import React from "react"
 import Head from "next/head"
 
 import { LayoutProps } from "./types"
-import { wording } from "./wording"
+import { app } from "_components/constants"
 
 import * as S from "./UI"
 
@@ -14,9 +14,9 @@ export const Layout = ({ children, onClick = () => {} }: LayoutProps) => {
 	return (
 		<>
 			<Head>
-				<title>{wording.HEAD_TITLE}</title>
+				<title>{app.name}</title>
 				<meta charSet="UTF-8" />
-				<meta name="description" content={wording.HEAD_META} />
+				<meta name="description" content={`${app.name} : Par ${app.author}`} />
 			</Head>
 			<S.GlobalStyles isMobile={isMobile} />
 			<S.App

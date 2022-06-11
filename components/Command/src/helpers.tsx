@@ -2,6 +2,7 @@
 import reactStringReplace from "react-string-replace"
 import { Trad } from "_/types"
 import { colors } from "_components/constants"
+import uniqid from "uniqid"
 
 export const trad = (input: Trad | string, lang: string) => {
 	if (lang === "leet") return frToLeet(input["fr"] || input)
@@ -73,21 +74,27 @@ const frToLeet = (txt: string, advanced: boolean = false): string => {
 export const hightlight = text => {
 	let result = text
 
-	result = reactStringReplace(result, /(\`[\d\w\[\]\ ]*\`)/g, (match, i) => (
-		<span key={match + i} style={{ fontStyle: "italic" }}>
+	result = reactStringReplace(result, /(\`[\d\wλ\'\[\]\ ]*\`)/g, (match, i) => (
+		<span key={uniqid()} style={{ fontStyle: "italic" }}>
 			{match}
 		</span>
 	))
 
-	result = reactStringReplace(result, /\*([\d\w\ ]*)\*/g, (match, i) => (
-		<span key={match + i} style={{ color: colors.infoColor }}>
+	result = reactStringReplace(result, /\*([\d\wλ\'\ ]*)\*/g, (match, i) => (
+		<span key={uniqid()} style={{ color: colors.infoColor }}>
 			{match}
 		</span>
 	))
 
-	result = reactStringReplace(result, /\+([\d\wλ\ ]*)\+/g, (match, i) => (
+	result = reactStringReplace(result, /\-([\d\wλ\'\ ]*)\-/g, (match, i) => (
+		<span key={uniqid()} style={{ textDecoration: "line-through" }}>
+			{match}
+		</span>
+	))
+
+	result = reactStringReplace(result, /\+([\d\wλ\'\ ]*)\+/g, (match, i) => (
 		<span
-			key={match + i}
+			key={uniqid()}
 			style={{
 				background: colors.appColor,
 				color: "black",

@@ -40,10 +40,8 @@ export default class MyDocument extends Document {
 		return (
 			<Html lang="fr">
 				<Head>
-					<meta charSet="utf-8" key="charset" />
-					<meta property="og:locale" content="fr_FR" key="property1" />
-					<meta property="og:url" content="" key="property2" />
-					<link rel="shortcut icon" href="https://cmder.net/favicon.ico"></link>
+					<meta charSet="utf-8" />
+					<link rel="shortcut icon" href="/favicon.ico"></link>
 				</Head>
 
 				<body>

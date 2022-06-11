@@ -8,8 +8,9 @@ import React, {
 	useEffect,
 } from "react"
 import { InputProps } from "./types"
-
 import { isMobile } from "react-device-detect"
+
+import { app } from "_components/constants"
 
 import { autocompleteCommand } from "_/api/commands"
 
@@ -76,7 +77,7 @@ export const Input = ({
 
 	return (
 		<S.Container>
-			<S.Lambda>λ</S.Lambda>
+			<S.Lambda>{app.logo}</S.Lambda>
 			<S.CustomInput
 				ref={ref}
 				value={inputValue}

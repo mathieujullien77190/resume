@@ -7,5 +7,13 @@ export const colors = {
 	cmdColor: "#c4e98d",
 	restrictedColor: "#d15f5f",
 	infoColor: "#77CDF1",
-	appColor: "rgb(144, 190, 32)",
+	appColor: "#90be20",
+}
+
+export const app = {
+	name: "SMCmder",
+	logo: "✿",
+	author: "JULLIEN Mathieu",
+	alias: "SuperMatou",
+	email: "mathieu.jullien77190@gmail.com",
 }
