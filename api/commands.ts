@@ -275,7 +275,7 @@ export const findCommand = (
 	return (
 		commands.filter(
 			command =>
-				command.name === name &&
+				command.name === name.toLowerCase() &&
 				(command.restricted === restricted || restricted === null)
 		)[0] || null
 	)

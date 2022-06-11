@@ -53,7 +53,7 @@ const Home = () => {
 
 	const handleClick = useCallback(() => {
 		if (!noMouse) handleSendRestrictedCommand("noclick")
-		setDisplayMouse(true)
+		dispatch(activateNoMouse(true))
 	}, [noMouse, handleSendRestrictedCommand])
 
 	const handleSendCommand = useCallback(
@@ -90,14 +90,8 @@ const Home = () => {
 	}, [handleSendRestrictedCommand])
 
 	return (
-		<Layout onClick={handleClick} noMouse={noMouse}>
+		<Layout onClick={handleClick}>
 			<>
-				<Mouse
-					show={displayMouse}
-					noMouse={noMouse}
-					onActivate={() => dispatch(activateNoMouse(true))}
-				/>
-
 				<Terminal
 					options={options}
 					commands={commands}

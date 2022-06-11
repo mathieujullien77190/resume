@@ -16,10 +16,14 @@ const Command = ({
 	onRendered = () => {},
 }: CommandProps) => {
 	const result = trad(command.result, lang)
-	const name = trad(command.name, lang)
+	const name = trad(command.name, lang).toLowerCase()
 	const args = trad(command.args.map(arg => `${arg}`).join(" "), lang)
 
 	const displayResult = useDisplayByLetter(result, canRendered, animation)
+
+	useEffect(() => {
+		window.scrollTo(0, 100000)
+	}, [displayResult])
 
 	useEffect(() => {
 		if (displayResult.finish) onRendered()

@@ -1,10 +1,9 @@
 /** @format */
 
-import styled, { createGlobalStyle, css } from "styled-components"
+import styled, { createGlobalStyle } from "styled-components"
 import { colors } from "_components/constants"
 
 export const GlobalStyles = createGlobalStyle<{
-	noMouse: boolean
 	isMobile: boolean
 }>`
   body, html, #__next {
@@ -15,16 +14,12 @@ export const GlobalStyles = createGlobalStyle<{
   }
 
   *, input {
-    font-size: ${({ isMobile }) => (isMobile ? "12px" : "17px")};
-  	${({ noMouse }) =>
-			noMouse &&
-			css`
-				//cursor: none;
-			`}
+    font-size: ${({ isMobile }) => (isMobile ? "10px" : "17px")};
   }
 `
 
 export const App = styled.div`
 	padding: 12px;
 	min-height: calc(100% - 24px);
+	display: flex;
 `
