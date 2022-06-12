@@ -50,7 +50,7 @@ const Command = ({
 							: highlight(displayResult.txt)}
 					</S.CmdResult>
 
-					{baseCommand.JSX && baseCommand.JSX()}
+					{baseCommand?.JSX && baseCommand.JSX()}
 				</S.CmdContainer>
 			)}
 		</>

@@ -342,7 +342,10 @@ export const commands: BaseCommand[] = [
 			return " => Elsa, pulco, Flocon et Satele (pronconcé Satile)"
 		},
 		JSX: () => (
-			<div style={{ display: "flex", margin: "10px 0" }}>
+			<div style={{ display: "flex", margin: "10px 0", position: "relative" }}>
+				<div
+					style={{ position: "absolute", width: "100%", height: "100%" }}
+				></div>
 				<iframe
 					style={{
 						width: "45vw",
