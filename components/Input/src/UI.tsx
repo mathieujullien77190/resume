@@ -23,9 +23,4 @@ export const Predict = styled.span`
 	opacity: 0.5;
 `
 
-export const Lambda = styled.strong`
-	background-color: ${colors.appColor};
-	color: black;
-	padding: 0 5px;
-	border: solid 1px black;
-`
+export const Lambda = styled.strong``
