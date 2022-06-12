@@ -34,6 +34,9 @@ export type BaseCommand = {
 		stylePre?: CSSProperties
 		highlight?: (txt: string) => JSX.Element[]
 		trad?: boolean
+		reverse?: boolean
+		stepTime?: number
+		stepSize?: number
 	}
 }
 
@@ -47,6 +50,5 @@ export type Command = {
 	timestamp?: number
 	id: string
 	canExecute: boolean
-
 	isRendered: boolean
 }

@@ -379,8 +379,17 @@ export const commands: BaseCommand[] = [
 			return plantFlowers()
 		},
 		display: {
-			stylePre: { fontSize: "calc(100vw/60)", color: colors.cmdColor },
+			stylePre: {
+				fontSize: "calc(100vw/60)",
+				color: colors.cmdColor,
+				transform: "scaleX(-1)",
+				textAlign: "right",
+			},
 			highlight: text => highlightFlower(text, { fontSize: "calc(100vw/60)" }),
+			trad: false,
+			reverse: true,
+			stepTime: 1,
+			stepSize: 1,
 		},
 		help: {
 			patterns: [

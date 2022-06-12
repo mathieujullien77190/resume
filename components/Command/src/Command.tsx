@@ -24,7 +24,15 @@ const Command = ({
 	const name = trad(command.name, lang)
 	const args = trad(command.args.map(arg => `${arg}`).join(" "), lang)
 
-	const displayResult = useDisplayByLetter(result, canRendered, animation, lang)
+	const displayResult = useDisplayByLetter({
+		baseTxt: result,
+		canRendered,
+		animation,
+		lang,
+		reverse: baseCommand?.display?.reverse,
+		stepTime: baseCommand?.display?.stepTime,
+		stepSize: baseCommand?.display?.stepSize,
+	})
 
 	useEffect(() => {
 		window.scrollTo(0, 100000)
