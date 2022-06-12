@@ -6,12 +6,13 @@ import { CommandProps } from "./types"
 import { app } from "_components/constants"
 
 import * as S from "./UI"
-import { trad, hightlight } from "./helpers"
+import { trad, highlight, highlightFlower } from "./helpers"
 import { useDisplayByLetter } from "./hooks"
 
 const Command = ({
 	canRendered,
 	command,
+	baseCommand,
 	lang,
 	animation,
 	onRendered = () => {},
@@ -44,10 +45,12 @@ const Command = ({
 					)}
 
 					<S.CmdResult style={command?.display?.stylePre || {}}>
-						{command?.display?.noHightlight
-							? displayResult.txt
-							: hightlight(displayResult.txt)}
+						{command?.display?.highlight === "flower"
+							? highlightFlower(displayResult.txt)
+							: highlight(displayResult.txt)}
 					</S.CmdResult>
+
+					{baseCommand.JSX && baseCommand.JSX()}
 				</S.CmdContainer>
 			)}
 		</>

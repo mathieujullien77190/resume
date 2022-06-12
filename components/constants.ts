@@ -11,7 +11,7 @@ export const colors = {
 }
 
 export const app = {
-	name: "SMCmder",
+	name: "Flower Cmder",
 	logo: "✿",
 	author: "JULLIEN Mathieu",
 	alias: "SuperMatou",

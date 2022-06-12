@@ -38,9 +38,9 @@ export const commands: BaseCommand[] = [
 		action: () => {
 			return [
 				`Bienvenue, Vous êtes sur +${app.name}+ un terminal de commande ultra performant.`,
-				"Deux solutions s'offres à vous : ",
+				"Deux solutions s'offrent à vous : ",
 				` - Vous souhaitez avoir des informations sur ${app.author} : taper \`cv\``,
-				` - Vous avez du temps à perdre et vous voulez découvrir toute -l'inutilite- la puissance de +${app.name}+ : tapez \`help\``,
+				` - Vous avez du temps à perdre et vous voulez découvrir toute -l'inutilite- la puissance de +${app.name}+ : tapez \`help\` `,
 			].join("\n")
 		},
 		help: {
@@ -67,8 +67,8 @@ export const commands: BaseCommand[] = [
 		display: {
 			hideCmd: true,
 			style: { alignItems: "center" },
-			stylePre: { fontSize: "calc(100vw/80)" },
-			noHightlight: true,
+			stylePre: { fontSize: "calc(100vw/100)" },
+			highlight: "flower",
 		},
 	},
 	{
@@ -232,6 +232,27 @@ export const commands: BaseCommand[] = [
 	},
 	{
 		restricted: false,
+		name: "about",
+		action: () => {
+			return [
+				`\n| +${app.name}+`,
+				"| Application de ligne de commande (inspiré par λCmder) qui n'a absolument aucune utilité",
+				`| Créée par *${app.author}* alias *${app.alias}* `,
+				"| Technos utilisées : React/Redux | NextJs | NodeJs",
+			].join("\n")
+		},
+
+		help: {
+			patterns: [
+				{
+					pattern: "about",
+					description: "Affiche différentes informations inutile",
+				},
+			],
+		},
+	},
+	{
+		restricted: false,
 		name: "animation",
 		testArgs: { authorize: ["on", "off"], empty: false },
 		action: ({ args }) => {
@@ -300,27 +321,6 @@ export const commands: BaseCommand[] = [
 	},
 	{
 		restricted: false,
-		name: "about",
-		action: () => {
-			return [
-				`\n| +${app.name}+`,
-				"| Application de ligne de commande (inspiré par λCmder)",
-				`| Créée par *${app.author}* alias *${app.alias}* qui n'a absolument aucune utilité`,
-				"| Technos utilisées : React/Redux | NextJs | NodeJs",
-			].join("\n")
-		},
-
-		help: {
-			patterns: [
-				{
-					pattern: "about",
-					description: "Affiche différentes informations inutile",
-				},
-			],
-		},
-	},
-	{
-		restricted: false,
 		name: "cv",
 		action: () => {
 			return ["blablabla mon CV ici à compléter"].join("\n")
@@ -331,6 +331,44 @@ export const commands: BaseCommand[] = [
 				{
 					pattern: "cv",
 					description: `Affiche le CV de ${app.author}`,
+				},
+			],
+		},
+	},
+	{
+		restricted: false,
+		name: "bird",
+		action: () => {
+			return " => Elsa, pulco, Flocon et Satele (pronconcé Satile)"
+		},
+		JSX: () => (
+			<div style={{ display: "flex", margin: "10px 0" }}>
+				<iframe
+					style={{
+						width: "45vw",
+						height: "45vw",
+						border: `solid 1px ${colors.textColor}`,
+						margin: "0 5px",
+					}}
+					src="//video.nest.com/embedded/live/fsva0q8gKr?autoplay=1"
+				></iframe>
+				<iframe
+					style={{
+						width: "45vw",
+						height: "45vw",
+						border: `solid 1px  ${colors.textColor}`,
+						margin: "0 5px",
+					}}
+					src="//video.nest.com/embedded/live/CijGpstQF6?autoplay=1"
+				></iframe>
+			</div>
+		),
+
+		help: {
+			patterns: [
+				{
+					pattern: "bird",
+					description: `Affiche le flux video en direct des perruches de *${app.author}*`,
 				},
 			],
 		},

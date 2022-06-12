@@ -25,13 +25,14 @@ export type BaseCommand = {
 	name: string
 	action: Action
 	redux?: ({ args }: { args?: Command["args"] }) => unknown
+	JSX?: () => JSX.Element
 	help?: Help
 	testArgs?: Args
 	display?: {
 		hideCmd?: boolean
 		style?: CSSProperties
 		stylePre?: CSSProperties
-		noHightlight?: boolean
+		highlight?: string
 	}
 }
 
@@ -49,7 +50,7 @@ export type Command = {
 		hideCmd?: boolean
 		style?: CSSProperties
 		stylePre?: CSSProperties
-		noHightlight?: boolean
+		highlight?: string
 	}
 	isRendered: boolean
 }
