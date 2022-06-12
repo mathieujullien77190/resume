@@ -32,7 +32,7 @@ export type BaseCommand = {
 		hideCmd?: boolean
 		style?: CSSProperties
 		stylePre?: CSSProperties
-		highlight?: string
+		highlight?: (txt: string) => JSX.Element[]
 		trad?: boolean
 	}
 }
@@ -47,12 +47,6 @@ export type Command = {
 	timestamp?: number
 	id: string
 	canExecute: boolean
-	display?: {
-		hideCmd?: boolean
-		style?: CSSProperties
-		stylePre?: CSSProperties
-		highlight?: string
-		trad?: boolean
-	}
+
 	isRendered: boolean
 }

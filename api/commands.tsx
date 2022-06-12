@@ -1,5 +1,7 @@
 /** @format */
 import { BaseCommand, Help } from "_/types"
+import reactStringReplace from "react-string-replace"
+import uniqid from "uniqid"
 
 import { colors, app } from "_components/constants"
 
@@ -29,6 +31,40 @@ const allCommandsHelp = () => {
 				.join("")}\n`
 		})
 		.join("")
+}
+
+const highlightFlower = (text, baseStyles) => {
+	let result = text
+
+	const list = [
+		{ reg: /R(.*)R/g, styles: { color: colors.restrictedColor } },
+		{ reg: /I(.*)I/g, styles: { color: colors.importantColor } },
+		{ reg: /B(.*)B/g, styles: { color: colors.infoColor } },
+		{ reg: /G(.*)G/g, styles: { color: colors.appColor } },
+		{ reg: /T(.*)T/g, styles: { color: colors.restrictedColor } },
+		{ reg: /J(.*)J/g, styles: { color: colors.importantColor } },
+		{ reg: /H(.*)H/g, styles: { color: colors.infoColor } },
+		{ reg: /K(.*)K/g, styles: { color: colors.appColor } },
+		{ reg: /X(.*)X/g, styles: { color: colors.restrictedColor } },
+		{ reg: /D(.*)D/g, styles: { color: colors.importantColor } },
+		{ reg: /Z(.*)Z/g, styles: { color: colors.infoColor } },
+	]
+
+	list.forEach(item => {
+		result = reactStringReplace(result, item.reg, (match, i) => (
+			<span
+				key={uniqid()}
+				style={{
+					...item.styles,
+					...baseStyles,
+				}}
+			>
+				{match}
+			</span>
+		))
+	})
+
+	return result
 }
 
 export const commands: BaseCommand[] = [
@@ -68,7 +104,7 @@ export const commands: BaseCommand[] = [
 			hideCmd: true,
 			style: { alignItems: "center" },
 			stylePre: { fontSize: "calc(100vw/100)" },
-			highlight: "flower",
+			highlight: text => highlightFlower(text, { fontSize: "calc(100vw/100)" }),
 			trad: false,
 		},
 	},
@@ -343,8 +379,8 @@ export const commands: BaseCommand[] = [
 			return plantFlowers()
 		},
 		display: {
-			stylePre: { fontSize: "calc(100vw/100)", color: colors.cmdColor },
-			highlight: "flower",
+			stylePre: { fontSize: "calc(100vw/60)", color: colors.cmdColor },
+			highlight: text => highlightFlower(text, { fontSize: "calc(100vw/60)" }),
 		},
 		help: {
 			patterns: [

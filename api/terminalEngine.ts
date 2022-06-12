@@ -35,7 +35,6 @@ export const createCommand = (
 				args,
 				result: executeCommand(select, args),
 				pattern: commandPattern,
-				display: select?.display,
 				timestamp,
 				id: `${timestamp}-${name}`,
 				isRendered: false,

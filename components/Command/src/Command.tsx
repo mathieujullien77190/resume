@@ -6,7 +6,7 @@ import { CommandProps } from "./types"
 import { app } from "_components/constants"
 
 import * as S from "./UI"
-import { trad, highlight, highlightFlower } from "./helpers"
+import { trad, highlight } from "./helpers"
 import { useDisplayByLetter } from "./hooks"
 
 const Command = ({
@@ -18,7 +18,7 @@ const Command = ({
 	onRendered = () => {},
 }: CommandProps) => {
 	const result =
-		command?.display?.trad === false
+		baseCommand?.display?.trad === false
 			? command.result
 			: trad(command.result, lang)
 	const name = trad(command.name, lang)
@@ -37,8 +37,8 @@ const Command = ({
 	return (
 		<>
 			{canRendered && (
-				<S.CmdContainer style={command?.display?.style || {}}>
-					{!command?.display?.hideCmd && (
+				<S.CmdContainer style={baseCommand?.display?.style || {}}>
+					{!baseCommand?.display?.hideCmd && (
 						<S.CmdLine restricted={command.restricted}>
 							<strong>{app.logo}</strong>{" "}
 							<span>
@@ -47,9 +47,9 @@ const Command = ({
 						</S.CmdLine>
 					)}
 
-					<S.CmdResult style={command?.display?.stylePre || {}}>
-						{command?.display?.highlight === "flower"
-							? highlightFlower(displayResult.txt)
+					<S.CmdResult style={baseCommand?.display?.stylePre || {}}>
+						{baseCommand?.display?.highlight
+							? baseCommand?.display?.highlight(displayResult.txt)
 							: highlight(displayResult.txt)}
 					</S.CmdResult>
 
