@@ -33,6 +33,7 @@ export type BaseCommand = {
 		style?: CSSProperties
 		stylePre?: CSSProperties
 		highlight?: string
+		trad?: boolean
 	}
 }
 
@@ -51,6 +52,7 @@ export type Command = {
 		style?: CSSProperties
 		stylePre?: CSSProperties
 		highlight?: string
+		trad?: boolean
 	}
 	isRendered: boolean
 }

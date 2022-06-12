@@ -3,7 +3,7 @@ import { BaseCommand, Help } from "_/types"
 
 import { colors, app } from "_components/constants"
 
-import { titleAsciiArt } from "./asciArt"
+import { titleAsciiArt, plantFlowers } from "./asciArt"
 
 import { setProperties } from "_store/global/"
 import { clear } from "_store/history/"
@@ -69,6 +69,7 @@ export const commands: BaseCommand[] = [
 			style: { alignItems: "center" },
 			stylePre: { fontSize: "calc(100vw/100)" },
 			highlight: "flower",
+			trad: false,
 		},
 	},
 	{
@@ -313,8 +314,8 @@ export const commands: BaseCommand[] = [
 					description: "Affiche tout les textes en xleet (version ilisible)",
 				},
 				{
-					pattern: "lang #",
-					description: "Remplace toute les lettres par `#` (version inutile)",
+					pattern: `lang #`,
+					description: `Remplace toute les lettres par \`${app.logo}\` (version inutile)`,
 				},
 			],
 		},
@@ -337,12 +338,38 @@ export const commands: BaseCommand[] = [
 	},
 	{
 		restricted: false,
+		name: "flowers",
+		action: () => {
+			return plantFlowers()
+		},
+		display: {
+			stylePre: { fontSize: "calc(100vw/100)", color: colors.cmdColor },
+			highlight: "flower",
+		},
+		help: {
+			patterns: [
+				{
+					pattern: "flowers",
+					description: `${app.logo}${app.logo}${app.logo} Plantez des fleurs ${app.logo}${app.logo}${app.logo}`,
+				},
+			],
+		},
+	},
+	{
+		restricted: false,
 		name: "bird",
 		action: () => {
 			return " => Elsa, pulco, Flocon et Satele (pronconcé Satile)"
 		},
 		JSX: () => (
-			<div style={{ display: "flex", margin: "10px 0", position: "relative" }}>
+			<div
+				style={{
+					display: "flex",
+					margin: "10px 0",
+					position: "relative",
+					justifyContent: "center",
+				}}
+			>
 				<div
 					style={{ position: "absolute", width: "100%", height: "100%" }}
 				></div>

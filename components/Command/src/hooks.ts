@@ -1,7 +1,6 @@
 /** @format */
 
 import { useEffect, useState } from "react"
-import { letterWrite } from "./helpers"
 
 export const useDisplayByLetter = (
 	baseTxt: string,
@@ -13,19 +12,18 @@ export const useDisplayByLetter = (
 	const [finish, setFinish] = useState<boolean>(false)
 	useEffect(() => {
 		if (canRendered) {
-			const txt = animation ? letterWrite(baseTxt) : [baseTxt]
-			const stepTime = txt.length > 200 ? 1 : 10
-			const j = txt.length > 200 ? 3 : 1
+			const stepTime = 10
+			const j = Math.floor(baseTxt.length / 100) + 1
 			let i = 0
 
 			const timer = setInterval(() => {
-				setTextTime(txt[i])
-				i = i + j
+				setTextTime(animation ? baseTxt.substring(0, i + 1) : baseTxt)
 
-				if (i > txt.length - 1) {
+				if (i > baseTxt.length - 1) {
 					clearInterval(timer)
 					setFinish(true)
 				}
+				i = i + j
 			}, stepTime)
 		}
 	}, [canRendered])

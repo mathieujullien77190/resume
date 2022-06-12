@@ -1,7 +1,7 @@
 /** @format */
 import reactStringReplace from "react-string-replace"
 import { Trad } from "_/types"
-import { colors } from "_components/constants"
+import { colors, app } from "_components/constants"
 import uniqid from "uniqid"
 
 export const trad = (input: Trad | string, lang: string) => {
@@ -11,7 +11,7 @@ export const trad = (input: Trad | string, lang: string) => {
 		return (input["fr"] || input)
 			.normalize("NFD")
 			.replace(/[\u0300-\u036f]/g, "")
-			.replace(/[\wç]/gi, "#")
+			.replace(/[\wç]/gi, app.logo)
 	return input[lang] || input
 }
 
@@ -88,7 +88,7 @@ export const highlightFlower = text => {
 		{ reg: /H(.*)H/g, styles: { color: colors.infoColor } },
 		{ reg: /K(.*)K/g, styles: { color: colors.appColor } },
 		{ reg: /X(.*)X/g, styles: { color: colors.restrictedColor } },
-		{ reg: /Y(.*)Y/g, styles: { color: colors.importantColor } },
+		{ reg: /D(.*)D/g, styles: { color: colors.importantColor } },
 		{ reg: /Z(.*)Z/g, styles: { color: colors.infoColor } },
 	]
 
@@ -146,8 +146,4 @@ export const highlight = text => {
 	))
 
 	return result
-}
-
-export const letterWrite = (text: string) => {
-	return text.split("").map((_, i) => text.substring(0, i + 1))
 }

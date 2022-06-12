@@ -17,7 +17,10 @@ const Command = ({
 	animation,
 	onRendered = () => {},
 }: CommandProps) => {
-	const result = trad(command.result, lang)
+	const result =
+		command?.display?.trad === false
+			? command.result
+			: trad(command.result, lang)
 	const name = trad(command.name, lang)
 	const args = trad(command.args.map(arg => `${arg}`).join(" "), lang)
 
