@@ -24,6 +24,8 @@ import {
 	useGetAnimation,
 } from "_store/global/"
 
+import { isMobile } from "react-device-detect"
+
 const Home = () => {
 	const dispatch = useAppDispatch()
 	const commands = useGetCommands()
@@ -47,8 +49,12 @@ const Home = () => {
 	)
 
 	const handleClick = useCallback(() => {
-		if (!noMouse) handleSendRestrictedCommand("noclick")
-		dispatch(setProperties({ value: true, key: "noMouse" }))
+		if (!isMobile) {
+			if (!noMouse) handleSendRestrictedCommand("noclick")
+			dispatch(setProperties({ value: true, key: "noMouse" }))
+		} else {
+			handleSetCursor(-1)
+		}
 	}, [noMouse, handleSendRestrictedCommand])
 
 	const handleSendCommand = useCallback(

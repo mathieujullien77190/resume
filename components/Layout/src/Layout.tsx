@@ -21,7 +21,7 @@ export const Layout = ({ children, onClick = () => {} }: LayoutProps) => {
 			<S.GlobalStyles isMobile={isMobile} />
 			<S.App
 				onClick={() => {
-					if (!isMobile) onClick()
+					onClick()
 				}}
 			>
 				{children}

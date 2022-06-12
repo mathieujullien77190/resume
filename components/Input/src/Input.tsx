@@ -38,6 +38,10 @@ export const Input = ({
 
 			if (commandPattern === "") {
 				e.preventDefault()
+			} else if (e.key === "Enter" && autocomplete !== "" && isMobile) {
+				setInputValue(autocomplete + " ")
+				setNbsLetters(autocomplete.length + 1)
+				setPredict("")
 			} else if (e.key === "Enter") {
 				onValidate(commandPattern)
 				setInputValue("")
@@ -73,7 +77,12 @@ export const Input = ({
 
 	useEffect(() => {
 		setInputValue(value)
+		setNbsLetters(value.length)
 	}, [value])
+
+	const predictDisplay = `( ${predict}? appuyez sur [${
+		isMobile ? "ENTER" : "TAB"
+	}] )`
 
 	return (
 		<S.Container>
@@ -93,9 +102,7 @@ export const Input = ({
 					setInputValue(e.currentTarget.value)
 				}}
 			/>
-			{!isMobile && predict !== "" && (
-				<S.Predict>( {predict}? appuyez sur [TAB] )</S.Predict>
-			)}
+			{predict !== "" && <S.Predict>{predictDisplay}</S.Predict>}
 		</S.Container>
 	)
 }

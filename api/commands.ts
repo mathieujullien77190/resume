@@ -352,8 +352,10 @@ export const findCommand = (
 
 export const autocompleteCommand = (startCommand: string): string => {
 	if (startCommand === "") return ""
+
 	const find = commands.filter(
 		command => !command.restricted && command.name.indexOf(startCommand) === 0
 	)
+	if ((find[0]?.name || "").length === startCommand.length) return ""
 	return find[0]?.name || ""
 }
