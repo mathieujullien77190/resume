@@ -73,7 +73,7 @@ export const commands: BaseCommand[] = [
 		name: "welcome",
 		action: () => {
 			return [
-				`Bienvenue, Vous êtes sur +${app.name}+ un terminal de commande ultra performant.`,
+				`Bienvenue, Vous êtes sur +${app.name}+ un terminal de commande tout en couleur.`,
 				"Deux solutions s'offrent à vous : ",
 				` - Vous souhaitez avoir des informations sur ${app.author} : taper \`cv\``,
 				` - Vous avez du temps à perdre et vous voulez découvrir toute -l'inutilite- la puissance de +${app.name}+ : tapez \`help\` `,
@@ -381,7 +381,7 @@ export const commands: BaseCommand[] = [
 		display: {
 			stylePre: {
 				fontSize: "calc(100vw/60)",
-				color: colors.cmdColor,
+				color: colors.appColor,
 				transform: "scaleX(-1)",
 				textAlign: "right",
 			},
