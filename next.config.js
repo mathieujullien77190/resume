@@ -9,6 +9,9 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 })
 
 const nextConfig = {
+	env: {
+		GOOGLE_MAP_KEY: process.env.GOOGLE_MAP_KEY,
+	},
 	distDir: "build",
 	trailingSlash: true,
 	exportPathMap: function () {
