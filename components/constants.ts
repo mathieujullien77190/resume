@@ -12,7 +12,7 @@ export const colors = {
 
 export const app = {
 	name: "Flower Cmder",
-	logo: "🌺",
+	logo: "🌼",
 	author: "JULLIEN Mathieu",
 	alias: "SuperMatou",
 	email: "mathieu.jullien77190@gmail.com",

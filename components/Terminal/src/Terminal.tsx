@@ -17,6 +17,7 @@ export const Terminal = ({
 	options,
 	onRendered,
 	onSendCommand,
+	onSendRestrictedCommand,
 	onSendPreviousCommand,
 	onSendNextCommand,
 }: TerminalProps) => {
@@ -37,6 +38,9 @@ export const Terminal = ({
 							key={command.id}
 							canRendered={prevIsRendered}
 							onRendered={() => onRendered(command.id)}
+							onClickCommand={(name, args) =>
+								onSendRestrictedCommand(`${name} ${args.join(" ")}`)
+							}
 						/>
 					)
 				})}

@@ -7,6 +7,7 @@ import { createCommand } from "_/api/terminalEngine"
 
 import Layout from "_components/Layout"
 import Terminal from "_components/Terminal"
+import SimpleMap from "_components/SimpleMap"
 
 import { useAppDispatch } from "_store/hooks"
 import {
@@ -17,11 +18,10 @@ import {
 	useGetCurrentCommand,
 } from "_store/history/"
 import {
-	setProperties,
-	useGetNoMouse,
 	useGetDebugMode,
 	useGetLanguage,
 	useGetAnimation,
+	useGetMap,
 } from "_store/global/"
 
 import { isMobile } from "react-device-detect"
@@ -29,9 +29,9 @@ import { isMobile } from "react-device-detect"
 const Home = () => {
 	const dispatch = useAppDispatch()
 	const commands = useGetCommands()
-	const noMouse = useGetNoMouse()
 	const debugMode = useGetDebugMode()
 	const options = { animation: useGetAnimation(), lang: useGetLanguage() }
+	const map = useGetMap()
 	const currentCommand = useGetCurrentCommand()
 
 	const handleRendered = useCallback(
@@ -43,19 +43,22 @@ const Home = () => {
 
 	const handleSendRestrictedCommand = useCallback(
 		(commandPattern: string) => {
+			const cmd = createCommand(commandPattern, true)
+			const baseCmd = findCommand(cmd.name, true)
+
+			if (baseCmd?.redux && cmd.canExecute)
+				dispatch(baseCmd.redux({ args: cmd.args }))
+
 			dispatch(addCommand(createCommand(commandPattern, true)))
 		},
 		[dispatch]
 	)
 
 	const handleClick = useCallback(() => {
-		if (!isMobile) {
-			if (!noMouse) handleSendRestrictedCommand("noclick")
-			dispatch(setProperties({ value: true, key: "noMouse" }))
-		} else {
+		if (isMobile) {
 			handleSetCursor(-1)
 		}
-	}, [noMouse, handleSendRestrictedCommand])
+	}, [isMobile])
 
 	const handleSendCommand = useCallback(
 		(commandPattern: string) => {
@@ -95,10 +98,12 @@ const Home = () => {
 					commands={commands}
 					currentCommand={currentCommand}
 					onSendCommand={handleSendCommand}
+					onSendRestrictedCommand={handleSendRestrictedCommand}
 					onSendPreviousCommand={() => handleSetCursor(-1)}
 					onSendNextCommand={() => handleSetCursor(1)}
 					onRendered={handleRendered}
 				/>
+				<SimpleMap search={map} />
 			</>
 		</Layout>
 	)

@@ -16,6 +16,7 @@ const Command = ({
 	lang,
 	animation,
 	onRendered = () => {},
+	onClickCommand = () => {},
 }: CommandProps) => {
 	const result =
 		baseCommand?.display?.trad === false
@@ -58,7 +59,13 @@ const Command = ({
 					<S.CmdResult style={baseCommand?.display?.stylePre || {}}>
 						{baseCommand?.display?.highlight
 							? baseCommand?.display?.highlight(displayResult.txt)
-							: highlight(displayResult.txt)}
+							: highlight(
+									displayResult.txt,
+									(name, args) => {
+										onClickCommand(name, args)
+									},
+									lang
+							  )}
 					</S.CmdResult>
 
 					{baseCommand?.JSX && baseCommand.JSX()}

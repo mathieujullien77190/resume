@@ -3,6 +3,7 @@ import reactStringReplace from "react-string-replace"
 import { Trad } from "_/types"
 import { colors, app } from "_components/constants"
 import uniqid from "uniqid"
+import React from "react"
 
 export const trad = (input: Trad | string, lang: string) => {
 	if (lang === "leet") return frToLeet(input["fr"] || input)
@@ -71,41 +72,78 @@ const frToLeet = (txt: string, advanced: boolean = false): string => {
 	return convertInput(txt, advanced ? "y" : "n")
 }
 
-export const highlight = text => {
-	let result = text
+export const highlight = (
+	text: string,
+	onClick: (name: string, arg: string[]) => void,
+	lang: string
+) => {
+	let result: string | React.ReactNodeArray = text
 
-	result = reactStringReplace(result, /(\`[\d\wλ\'\[\]\ ]*\`)/g, (match, i) => (
-		<span key={uniqid()} style={{ fontStyle: "italic" }}>
-			{match}
-		</span>
-	))
-
-	result = reactStringReplace(result, /\*([\d\wλ\'\ ]*)\*/g, (match, i) => (
-		<span key={uniqid()} style={{ color: colors.infoColor }}>
-			{match}
-		</span>
-	))
-
-	result = reactStringReplace(result, /\-([\d\wλ\'\ ]*)\-/g, (match, i) => (
-		<span key={uniqid()} style={{ textDecoration: "line-through" }}>
-			{match}
-		</span>
-	))
-
-	result = reactStringReplace(result, /\+([\d\wλ\'\ ]*)\+/g, (match, i) => (
-		<span
-			key={uniqid()}
-			style={{
+	const list: {
+		separator: string
+		styles: React.CSSProperties
+		command?: string
+	}[] = [
+		{
+			separator: "*",
+			styles: { color: colors.importantColor },
+		},
+		{
+			separator: "+",
+			styles: { color: colors.infoColor },
+		},
+		{
+			separator: "#",
+			styles: { color: colors.importantColor, cursor: "pointer" },
+			command: "actionmap",
+		},
+		{
+			separator: "$",
+			styles: {
 				background: colors.appColor,
 				color: "black",
 				border: "solid 1px solid",
 				padding: "0 5px",
 				fontWeight: "bold",
-			}}
-		>
-			{match}
-		</span>
-	))
+			},
+		},
+		{ separator: "-", styles: { textDecoration: "line-through" } },
+	].filter(
+		item => (item.separator !== "-" && lang === "xleet") || lang !== "xleet"
+	)
+
+	list.forEach(item => {
+		result = reactStringReplace(
+			result,
+			new RegExp(
+				`\\${item.separator}([^\\${item.separator}]*)\\${item.separator}`,
+				"g"
+			),
+			(match, i) => {
+				let replace = match
+				let arg = []
+
+				if (match.indexOf("~") !== -1) {
+					replace = match.split("~")[0]
+					arg = match.split("~")[1].split(" ")
+				}
+
+				return (
+					<span
+						key={uniqid()}
+						style={{
+							...item.styles,
+						}}
+						onClick={() => {
+							if (item.command) onClick(item.command, arg)
+						}}
+					>
+						{replace}
+					</span>
+				)
+			}
+		)
+	})
 
 	return result
 }

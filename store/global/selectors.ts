@@ -3,9 +3,6 @@
 import { RootState } from "../root"
 import { useAppSelector } from "_store/hooks"
 
-export const useGetNoMouse = () =>
-	useAppSelector((state: RootState) => state.global.noMouse)
-
 export const useGetDebugMode = () =>
 	useAppSelector((state: RootState) => state.global.debugMode)
 
@@ -14,3 +11,6 @@ export const useGetLanguage = () =>
 
 export const useGetAnimation = () =>
 	useAppSelector((state: RootState) => state.global.animation)
+
+export const useGetMap = () =>
+	useAppSelector((state: RootState) => state.global.map)

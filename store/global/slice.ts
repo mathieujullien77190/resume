@@ -3,17 +3,17 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 type Global = {
-	noMouse: boolean
 	debugMode: boolean
 	lang: string
 	animation: boolean
+	map: string
 }
 
 const initialState: Global = {
-	noMouse: false,
 	debugMode: false,
 	lang: "fr",
 	animation: true,
+	map: null,
 }
 
 const folderSlice = createSlice({

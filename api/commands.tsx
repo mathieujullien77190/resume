@@ -26,7 +26,7 @@ const allCommandsHelp = () => {
 		)
 		.sort((a, b) => a.name.localeCompare(b.name))
 		.map(command => {
-			return `*${command.name}*\n${command.help.patterns
+			return `+${command.name}+\n${command.help.patterns
 				.map(pattern => `\t${pattern.pattern} : ${pattern.description}\n`)
 				.join("")}\n`
 		})
@@ -73,10 +73,10 @@ export const commands: BaseCommand[] = [
 		name: "welcome",
 		action: () => {
 			return [
-				`Bienvenue, Vous êtes sur +${app.name}+ un terminal de commande tout en couleur.`,
+				`Bienvenue, Vous êtes sur $${app.name}$ un terminal de commande tout en couleur.`,
 				"Deux solutions s'offrent à vous : ",
-				` - Vous souhaitez avoir des informations sur ${app.author} : taper \`cv\``,
-				` - Vous avez du temps à perdre et vous voulez découvrir toute -l'inutilite- la puissance de +${app.name}+ : tapez \`help\` `,
+				` • Vous souhaitez avoir des informations sur ${app.author} : taper \`cv\``,
+				` • Vous avez du temps à perdre et vous voulez découvrir toute -l'inutilité- la puissance de $${app.name}$ : tapez \`help\` `,
 			].join("\n")
 		},
 		help: {
@@ -106,21 +106,6 @@ export const commands: BaseCommand[] = [
 			stylePre: { fontSize: "calc(100vw/100)" },
 			highlight: text => highlightFlower(text, { fontSize: "calc(100vw/100)" }),
 			trad: false,
-		},
-	},
-	{
-		restricted: true,
-		name: "noclick",
-		action: () => {
-			return {
-				fr: `Ceci est un terminal de commande, la souris est inutile`,
-				en: "xxx",
-			}
-		},
-		help: {
-			description:
-				"Ceci est une commande à accès restreint, vous ne pouvez pas l'utiliser",
-			patterns: [],
 		},
 	},
 	{
@@ -165,7 +150,7 @@ export const commands: BaseCommand[] = [
 			}
 		},
 		help: {
-			description: `Fournit des informations d’aide sur les commandes du +${app.name}+`,
+			description: `Fournit des informations d’aide sur les commandes du $${app.name}$`,
 			patterns: [
 				{
 					pattern: "help [command]",
@@ -268,11 +253,32 @@ export const commands: BaseCommand[] = [
 		},
 	},
 	{
+		restricted: true,
+		name: "actionmap",
+		action: () => {
+			return { fr: "affiche une carte", en: "display map" }
+		},
+		redux: ({ args }) => {
+			return setProperties({
+				key: "map",
+				value: args[0],
+			})
+		},
+		help: {
+			patterns: [
+				{
+					pattern: "debug on",
+					description: "Active le mode debug en console",
+				},
+			],
+		},
+	},
+	{
 		restricted: false,
 		name: "about",
 		action: () => {
 			return [
-				`\n| +${app.name}+`,
+				`\n| $${app.name}$`,
 				"| Application de ligne de commande (inspiré par λCmder) qui n'a absolument aucune utilité",
 				`| Créée par *${app.author}* alias *${app.alias}* `,
 				"| Technos utilisées : React/Redux | NextJs | NodeJs",
@@ -360,7 +366,18 @@ export const commands: BaseCommand[] = [
 		restricted: false,
 		name: "cv",
 		action: () => {
-			return ["blablabla mon CV ici à compléter"].join("\n")
+			return [
+				"*FORMATIONS*",
+				"",
+				"+2007 – 2010 : Licence / Master MIAGE option SIR+ #[?]~MIAGE%20Orleans#",
+				"Méthodes Informatiques Appliquées à la gestion des entreprises (UFR de science d’Orléans)",
+				"",
+				"+2005 – 2007 : DUT Informatique+  #[?]~IUT%20A%20Claude%20Bernard%20Lyon%201#",
+				"IUT informatique option génie informatique (IUT A Claude Bernard Lyon 1)",
+				"",
+				"+2005: Bac scientifique+ #[?]~Lycee%20charles%20et%20adrien%20dupuy#",
+				"Baccalauréat scientifique spé mathématique (Lycée Charles et Adrien Dupuy, Le Puy en Velay)",
+			].join("\n")
 		},
 
 		help: {
