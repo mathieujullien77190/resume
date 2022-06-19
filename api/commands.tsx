@@ -264,14 +264,6 @@ export const commands: BaseCommand[] = [
 				value: args[0],
 			})
 		},
-		help: {
-			patterns: [
-				{
-					pattern: "debug on",
-					description: "Active le mode debug en console",
-				},
-			],
-		},
 	},
 	{
 		restricted: false,
