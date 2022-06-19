@@ -2,8 +2,8 @@
 
 import React, { useCallback, useEffect } from "react"
 
-import { findCommand } from "_/api/commands"
-import { createCommand } from "_/api/terminalEngine"
+import { findCommand } from "_commands/data"
+import { createCommand } from "_commands/terminalEngine"
 
 import Layout from "_components/Layout"
 import Terminal from "_components/Terminal"

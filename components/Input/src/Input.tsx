@@ -12,7 +12,7 @@ import { isMobile } from "react-device-detect"
 
 import { app } from "_components/constants"
 
-import { autocompleteCommand } from "_/api/commands"
+import { autocompleteCommand } from "_commands/data"
 
 import * as S from "./UI"
 import { cleanCommand } from "./helpers"

@@ -7,7 +7,7 @@ import { TerminalProps } from "./types"
 import Input from "_components/Input"
 import Command from "_components/Command"
 
-import { findCommand } from "_/api/commands"
+import { findCommand } from "_commands/data"
 
 import * as S from "./UI"
 
