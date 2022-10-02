@@ -9,7 +9,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 })
 
 const nextConfig = {
-	distDir: "build",
 	trailingSlash: true,
 	exportPathMap: function () {
 		return {
