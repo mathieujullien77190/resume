@@ -20,7 +20,7 @@
 				"plugin:import/errors",
 				"plugin:import/warnings",
 				"plugin:import/typescript",
-				"prettier"
+				"eslint-config-prettier/@typescript-eslint"
 			]
 		}
 	]
